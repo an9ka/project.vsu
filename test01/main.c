@@ -3,6 +3,7 @@
  *  Created on: 17 апр. 2020 г.
  *      Author: Anna Semenova
  */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -15,15 +16,15 @@ int main(void){
     char sign = '+', S;
     int repeat = 1;
     int size, select;
-    while(repeat == 1){ //Запускается цикл, благодаря которому мы можем выбирать повторить нам заново режим и операции или нет.
-        printf("Select a mode('number operation'-tap 1, 'vector operation'-tap 2):\n"); //Выбор между вектроными и арифм. операц.
+    while(repeat == 1){                             //можем выбирать повторить нам заново режим и операции или нет. запуск цикла
+        printf("Select a mode('number operation'-tap 1, 'vector operation'-tap 2):\n");    //выбор между вектроными и арифм. операц.
         scanf("%i", &select);
-        if (select == 1){ //При выборе 1 запускается операция с числами.
-            printf("Select the first number:"); //первое число.
+        if (select == 1){                                  //операция  с   числами
+            printf("Select the first number:");          //первое число.
             scanf("%f", &firstnum);
-            printf("Select the sign(+-*/^!):"); //Знак операции
+            printf("Select the sign(+-*/^!):");                    //Знак операции
             scanf(" %c%*c", &sign);
-            //Предлагаем выбрать второе число
+                                           //Предлагаем выбрать второе число
             if (sign == '+'){
                 printf("Select the second number:\n");
                 scanf("%f", &secondnum);
@@ -76,19 +77,19 @@ int main(void){
                 printf("Please select the sign again(+-*/^): \n");
             }
         }
-        else if(select == 2){ //При выборе 2 запускается векторна операция.
-            printf("Enter the size of the vectors: "); //Выбираем размер вектора.
+        else if(select == 2){                                      //если выбрали, то запускаетя 2 векторная операция
+            printf("Vvedite the size of the vectors: ");             //выбор размера вектора
             scanf("%i", &size);
             vec1 = calloc(size,sizeof(float));
             for (int i=0; i<size; i++){
-                printf("Enter the first vector: "); //Выбираем первый вектор.
+                printf("Vvedite pervyy vectors: ");                  //выбор первого вектора 
                 scanf("%f", &vec1[i]); }
             vec2 = calloc(size,sizeof(float));
             for (int i=0; i<size; i++){
-                printf("Enter the second vector: "); //Выбираем второй вектор.
+                printf("Vvedite sleduyushchiy vectors: ");                //выбор второго вектора
                 scanf("%f", &vec2[i]); }
-            printf("Select the sign(+-*):"); //Выбираем знак.
-            scanf(" %c%*c", &S);
+            printf("Select the sign(+-*):");                        //предлагаем выбрать знак операции
+            scanf(" %c%*c", &S);                                  //ввод знака операции
             switch(S)
             {
             case '+':
@@ -107,9 +108,9 @@ int main(void){
             }
         }
         else{
-            printf("Please select a mode again: 1 - num., 2 - vec: \n");
+            printf("Kakoi regim next?: 1 - num., 2 - vec: \n");
         }
-    printf("Do you want to continue? ('Yes'-tap 1, 'No'- tap 0): \n");
+    printf("Hotite prodolgit'? ('Yes'-tap 1, 'No'- tap 0): \n");
     scanf(" %i", &repeat);
     }
     free(vec1);
