@@ -113,7 +113,7 @@ int main(void){
     printf("Hotite prodolgit'? ('Yes'-tap 1, 'No'- tap 0): \n");
     scanf(" %i", &repeat);
     }
-    free(vec1);
+    free(vec1); //освобождение памяти
     free(vec2);
     return 0;
 }
