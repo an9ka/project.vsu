@@ -1,96 +1,120 @@
 /*
  * name    calculator
  * author  Anna Semenova
- * version 1.2
+ * version 2.0
  */
 
+
 #include <stdio.h>
-#include <locale.h>
+#include <stdlib.h>
 
-int main(void)
-{
-  int a;                                 // Объявляем переменные first number
-  int b;                                 // second number
-  char operation_type;
-  float result;
-  int i;
+int main(void){
 
-  setlocale(LC_ALL, "Russian");
+    setvbuf(stdout, NULL, _IONBF, 0);
+    setvbuf(stderr, NULL, _IONBF, 0);
+    float firstnum, secondnum, var1, var2;
+    float *vec1, *vec2, res;
+    char sign = '+', S;
+    int repeat = 1;
+    int size, select;
+    while(repeat == 1){ //Запускается цикл, благодаря которому мы можем выбирать повторить нам заново режим и операции или нет.
+        printf("Select a mode('number operation'-tap 1, 'vector operation'-tap 2):\n"); //Выбор между вектроными и арифм. операц.
+        scanf("%i", &select);
+        if (select == 1){ //При выборе 1 запускается операция с числами.
+            printf("Select the first number:"); //первое число.
+            scanf("%f", &firstnum);
+            printf("Select the sign(+-*/^!):"); //Знак операции
+            scanf(" %c%*c", &sign);
+            //Предлагаем выбрать второе число
+            if (sign == '+'){
+                printf("Select the second number:\n");
+                scanf("%f", &secondnum);
+                printf("Result: %f\n", firstnum+secondnum);
+            }
+            else if (sign == '-')
+            {
+                printf("Select the second number:\n");
+                scanf("%f", &secondnum);
+                printf("Result: %f\n", firstnum-secondnum);
+            }
+            if (sign == '*')
+            {
+                     printf("Select the second number:\n");
+                     scanf("%f", &secondnum);
+                     printf("Result: %f\n", firstnum*secondnum);
+                 }
+            else if (sign == '/')
+            {
+                     printf("Select the second number:\n");
+                     scanf("%f", &secondnum);
+                     if( secondnum == 0){
+                         printf("Wrong! ");}
+                     else {
+                         printf("Result: %f\n", firstnum/secondnum);
+                     }
+                 }
+            if (sign == '^')
+            {
+                printf("Select the second number:\n");
+                scanf("%f", &secondnum);
+                var1=1;
+                var2=1;
+                for(int var1=1; var1<=secondnum; var1++){
+                    var1=var2;
+                    var2=var1*firstnum;}
+                printf("Result: %f\n", var2);
 
-  do
-  {
-      printf("Enter operation or quit" );
-      printf("\nAvailable operations: +, -, *, /, ^, ! or 'q' - end: ");  //предлагеам выбрать операцию
-      scanf(" %c", &operation_type);    //вводим операцию
-      if (operation_type != 'q'){  //если выбираем завершить оперецию, то просим пользователя ввести первое число
-      printf("Enter 1 number: ");
-      scanf("%i", &a);
-      }
-
-    switch (operation_type)  //заходим воператор switch, дальше будет рабоать блок в зависимости от выбора операции
-    {
-      case '+':                        // если + то
-        printf("Enter 2 number: ");    // ввести второе число
-        scanf("%i", &b);                // просим ввести второе число
-        result = a + b;
-        printf("Result: %i + %i = %f \n", a, b, result);  // выводим результат
-        break;                                           // нужен для того чтобы не работали сразу все "case"
-      case '-':
-        printf("Enter 2 number: ");
-        scanf("%i", &b);
-        result = a - b;
-        printf("Result: %i - %i = %f \n", a, b, result);
-        break;
-      case '*':
-        printf("Enter 2 number:");
-        scanf("%i", &b);
-        result = a * b;
-        printf("Result: %i * %i = %f \n", a, b, result);
-        break;
-      case '/':
-        printf("Enter 2 number:");
-        scanf("%i", &b);
-        result = a / b;
-        printf("Result: %i / %i = %f \n", a, b, result);
-        break;
-      case '^':
-        printf("Enter 2 number:");
-        scanf("%i", &b);
-        result = 1;
-
-        for (i = 0; i < b; i++)
-        {
-          result = result * a;
+            }
+            else if (sign == '!')
+            {
+                var1=0;
+                var2=1;
+                for(int i=1; i<=firstnum; i++){
+                    var2=var2*i;
+                    var1=var2;}
+                    printf("Result: %f\n", var2);}
+            else
+            {
+                printf("Please select the sign again(+-*/^): \n");
+            }
         }
-        printf("Result: %i ^ %i = %f \n", a, b, result);
-        break;
-      case '!':
-        if (a == 0) // если number == 0, то факториал считать не нужно, ответ 1
-        {
-          result = 1;
+        else if(select == 2){ //При выборе 2 запускается векторна операция.
+            printf("Enter the size of the vectors: "); //Выбираем размер вектора.
+            scanf("%i", &size);
+            vec1 = calloc(size,sizeof(float));
+            for (int i=0; i<size; i++){
+                printf("Enter the first vector: "); //Выбираем первый вектор.
+                scanf("%f", &vec1[i]); }
+            vec2 = calloc(size,sizeof(float));
+            for (int i=0; i<size; i++){
+                printf("Enter the second vector: "); //Выбираем второй вектор.
+                scanf("%f", &vec2[i]); }
+            printf("Select the sign(+-*):"); //Выбираем знак.
+            scanf(" %c%*c", &S);
+            switch(S)
+            {
+            case '+':
+               for (int i = 0; i < size; i++){
+               printf("%f", vec1[i] + vec2[i]);}
+               break;
+            case '-':
+               for (int i = 0; i < size; i++){
+               printf("%f", vec1[i] - vec2[i]);}
+               break;
+            case '*':
+                for (int i = 0; i < size; i++){
+                res += vec1[i] * vec2[i];}
+                printf("Result: %f\n", res);
+                break;
+            }
         }
-        else // если number != 0
-        {
-          result = 1;
-          for (i = 1; i <= a; i++)
-          {
-            result = result * i;
-          }
+        else{
+            printf("Please select a mode again: 1 - num., 2 - vec: \n");
         }
-        printf("Result: %i! = %f \n", a, result);
-        break;
-      case 'q':
-        printf("End. Bye!^-^");
-        break;
-      default:                                 //если введено что то кроме предложанного символа то просим начать все сначала
-        printf("Invalid character entered ");
-        printf("Try it again");
-        break;
+    printf("Do you want to continue? ('Yes'-tap 1, 'No'- tap 0): \n");
+    scanf(" %i", &repeat);
     }
-  }
-  while (operation_type != 'q');
-
-  return 0;
+    free(vec1);
+    free(vec2);
+    return 0;
 }
-
-
